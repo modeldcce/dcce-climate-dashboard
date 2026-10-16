@@ -1,74 +1,47 @@
 <!doctype html>
-<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DCCE | R35mm Climate Dashboard</title>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DCCE | Climate Precipitation Indicators</title>
 <style>
-:root{--deep:#003d30;--forest:#005640;--green:#08765a;--yellow:#f8d93e;--pale:#eaf5ee;--white:#fff;--ink:#173a32}
-*{box-sizing:border-box}body{margin:0;background:#edf3ef;color:var(--ink);font-family:Arial,'Noto Sans Thai',Tahoma,sans-serif}header{background:linear-gradient(115deg,#003c2f,#006048);color:white;padding:25px max(20px,3vw);display:flex;align-items:center;gap:20px;border-bottom:5px solid var(--yellow)}.logo{width:95px;height:95px;object-fit:contain}.logo-fallback{border:2px solid white;border-radius:50%;width:95px;height:95px;display:grid;place-items:center;font-size:22px;font-weight:bold}header h1{font-size:clamp(22px,2.4vw,37px);margin:0 0 8px}header p{margin:4px 0}.accent{color:var(--yellow)}.pill{margin-left:auto;background:#003328;border:1px solid #63a58d;border-radius:20px;padding:16px 20px;font-weight:bold;white-space:nowrap}main{max-width:1800px;margin:auto;padding:20px}.toolbar{background:white;padding:14px 20px;border-radius:12px;margin-bottom:15px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.toolbar strong{color:var(--forest)}.maps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.map-card,.info{background:white;border:2px solid #006349;border-radius:14px;overflow:hidden}.map-title{background:var(--deep);color:white;display:flex;align-items:center;gap:12px;padding:13px;min-height:100px}.number{background:white;color:var(--deep);border-radius:50%;min-width:44px;height:44px;display:grid;place-items:center;font-size:27px;font-weight:bold}h2{font-size:clamp(17px,1.3vw,22px);margin:0 0 5px}.map-title p{font-size:13px;margin:0;color:#f5df71}.map-image{padding:8px;display:flex;align-items:center;justify-content:center;min-height:380px}.map-image img{display:block;width:100%;height:auto;object-fit:contain}.infos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:14px}.info h3{margin:0;background:var(--forest);color:white;padding:13px 16px}.info .body{padding:14px 17px;line-height:1.8}.info p{margin:0 0 8px}.notice{background:#003d30;color:white;border-radius:12px;padding:17px 20px;margin-top:14px;line-height:1.75;border-left:7px solid var(--yellow)}.notice strong{color:var(--yellow)}footer{text-align:center;padding:16px;color:#547369;font-size:12px}@media(max-width:1100px){.maps,.infos{grid-template-columns:1fr}.map-image{min-height:0}.map-image img{max-width:800px}}@media(max-width:650px){header{align-items:flex-start;flex-wrap:wrap}.pill{margin-left:0}.logo,.logo-fallback{width:65px;height:65px}}
-
-/* Pair each map with its matching explanation on narrow screens. */
-@media(max-width:1100px) {
-.dashboard-grid { display:grid; grid-template-columns:minmax(0,1fr); gap:0; }
-.maps,.infos { display:contents; }
-.maps > .map-card:nth-child(1) { order:1; }
-.infos > .info:nth-child(1) { order:2; margin-bottom:14px; }
-.maps > .map-card:nth-child(2) { order:3; }
-.infos > .info:nth-child(2) { order:4; margin-bottom:14px; }
-.maps > .map-card:nth-child(3) { order:5; }
-.infos > .info:nth-child(3) { order:6; }
-.info { border-top-left-radius:0; border-top-right-radius:0; border-top:0; }
-.map-card { border-bottom-left-radius:0; border-bottom-right-radius:0; }
-}
-/* Responsive mobile layout */
-@media(max-width:650px) {
-header { display:grid; grid-template-columns:56px minmax(0,1fr); align-items:start; gap:10px; padding:12px; }
-.logo,.logo-fallback { width:54px; height:54px; }
-header h1 { font-size:18px; line-height:1.3; overflow-wrap:anywhere; }
-header p { font-size:11px; line-height:1.5; }
-.pill { grid-column:1/-1; margin:0; padding:9px 12px; white-space:normal; border-radius:9px; }
-main { padding:9px; }
-.toolbar { flex-direction:column; align-items:flex-start; font-size:12px; padding:11px; }
-.maps,.infos { grid-template-columns:minmax(0,1fr); gap:12px; }
-.map-title { min-height:0; padding:10px; gap:9px; }
-.map-title h2 { font-size:16px; }
-.map-title p { font-size:11px; line-height:1.5; }
-.number { min-width:36px; height:36px; font-size:22px; }
-.map-image { padding:5px; min-height:0; }
-.map-image img { width:100%; max-width:100%; height:auto; }
-.info h3 { padding:11px; font-size:15px; }
-.info .body { padding:12px; font-size:14px; line-height:1.7; }
-.notice { padding:13px; font-size:13px; }
-}
-.map-image img { cursor:zoom-in; }
-.map-viewer { position:fixed; inset:0; background:rgba(0,24,19,.96); z-index:9999; display:none; align-items:center; justify-content:center; padding:50px 8px 12px; }
-.map-viewer.open { display:flex; }
-.map-viewer img { max-width:100%; max-height:100%; object-fit:contain; }
-.map-viewer button { position:absolute; right:12px; top:10px; border:1px solid white; border-radius:8px; background:#005640; color:white; padding:8px 12px; font-size:17px; }
+:root{--deep:#003d30;--forest:#005640;--green:#08765a;--yellow:#f8d93e;--pale:#eaf5ee;--ink:#173a32}*{box-sizing:border-box}
+body{margin:0;background:#edf3ef;color:var(--ink);font-family:Arial,'Noto Sans Thai',Tahoma,sans-serif}
+header{background:linear-gradient(115deg,#003c2f,#006048);color:#fff;border-bottom:5px solid var(--yellow);padding:24px max(18px,3vw);display:flex;align-items:center;gap:20px}
+.logo{width:92px;height:92px;object-fit:contain}header h1{font-size:clamp(21px,2.3vw,36px);margin:0 0 8px}header p{margin:4px 0}.accent{color:var(--yellow)}.pill{margin-left:auto;background:#003328;border:1px solid #63a58d;border-radius:16px;padding:14px 18px;white-space:nowrap}
+main{max-width:1740px;margin:auto;padding:18px}.panel{background:white;border:1px solid #cbded4;border-radius:14px;padding:18px;margin-bottom:15px}
+.panel h2{margin:0 0 12px;color:var(--forest);font-size:19px}.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.tab{background:#eff5f0;border:2px solid transparent;border-radius:11px;padding:13px;text-align:left;cursor:pointer;color:var(--ink);font-size:16px}.tab strong{display:block;font-size:19px}.tab span{display:block;margin-top:4px;font-size:12px;line-height:1.5}.tab[aria-selected="true"]{background:var(--deep);color:#fff;border-color:#d3b83e}.tab:focus-visible,.mode:focus-visible,.action:focus-visible{outline:3px solid #f2c735;outline-offset:2px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.toolbar p{margin:6px 0 0}.modes{display:flex;flex-wrap:wrap;gap:7px}.mode,.action{background:white;border:1px solid #8ab5a5;color:var(--deep);border-radius:8px;padding:9px 12px;cursor:pointer;text-decoration:none;font-size:13px}.mode[aria-pressed="true"]{background:var(--forest);color:white}
+.maps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:14px}.maps.single{grid-template-columns:minmax(0,750px);justify-content:center}
+.card{background:#fff;border:2px solid #006349;border-radius:14px;overflow:hidden;min-width:0}.card-head{background:var(--deep);color:#fff;padding:13px 16px}.card-head h3{margin:0 0 4px;font-size:18px}.card-head small{color:#f5df71}.card-body{padding:12px}.map-image{display:block;width:100%;height:auto;cursor:zoom-in}.missing{min-height:350px;display:flex;align-items:center;justify-content:center;text-align:center;background:#f6f7f6;color:#657b72;padding:22px;overflow-wrap:anywhere}.card-desc{line-height:1.7;font-size:14px;margin:10px 0}.card-actions{display:flex;gap:8px;flex-wrap:wrap}.notice{background:var(--deep);color:#fff;border-left:7px solid var(--yellow);border-radius:12px;padding:18px;line-height:1.8}.notice strong{color:var(--yellow)}details{line-height:1.8}details summary{font-weight:bold;cursor:pointer;color:var(--forest)}footer{text-align:center;padding:16px;color:#547369;font-size:12px}
+.viewer{position:fixed;inset:0;z-index:9999;background:rgba(0,24,19,.96);display:none;align-items:center;justify-content:center;padding:55px 15px 20px}.viewer.open{display:flex}.viewer img{max-width:100%;max-height:100%;object-fit:contain}.viewer button{position:absolute;right:15px;top:12px;border:1px solid #fff;background:var(--forest);color:#fff;border-radius:8px;padding:9px 13px;cursor:pointer}
+@media(max-width:1150px){.maps{grid-template-columns:1fr}.card{max-width:850px;width:100%;margin:auto}.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:650px){header{display:grid;grid-template-columns:55px minmax(0,1fr);gap:10px;padding:13px}.logo{width:54px;height:54px}header h1{font-size:19px}header p{font-size:11px}.pill{grid-column:1/-1;margin:0;white-space:normal;padding:10px}main{padding:9px}.panel{padding:12px}.tab{padding:10px}.tab strong{font-size:16px}.tab span{font-size:11px}.card-head h3{font-size:16px}}
 </style></head><body>
-<header><img class="logo" src="images/DCCE_logo.gif" alt="DCCE logo"><div><h1>ผลกระทบจากการเปลี่ยนแปลงสภาพภูมิอากาศ</h1><h1 class="accent">ต่อจำนวนวันฝนตกหนัก (≥ 35 มม./วัน) ของประเทศไทย</h1><p>CMIP6 · SSP5-8.5 · Downscaled by WRF-Chem (25 km)</p></div><div class="pill">SSP5-8.5<br><small>High GHG emissions scenario</small></div></header>
-<main><div class="toolbar"><strong>R35mm · Number of days with precipitation ≥ 35 mm/day</strong><span>เดือนพฤศจิกายน 2026 เทียบกับ Historical (1981–2010)</span></div>
-<div class="dashboard-grid">
-<div class="maps"><article class="map-card"><div class="map-title"><span class="number">1</span><div><h2>Historical (1981–2010)</h2><p>ข้อมูลภูมิอากาศในอดีต</p></div></div><div class="map-image"><img src="images/R35mmHistorical.png" alt="R35mm Historical (1981–2010)" loading="eager"></div></article>
-<article class="map-card"><div class="map-title"><span class="number">2</span><div><h2>November 2026 · SSP5-8.5</h2><p>ภาพฉายภายใต้สถานการณ์การปล่อยก๊าซเรือนกระจกสูง</p></div></div><div class="map-image"><img src="images/R35Month.png" alt="R35mm November 2026 · SSP5-8.5" loading="eager"></div></article>
-<article class="map-card"><div class="map-title"><span class="number">3</span><div><h2>Difference / Anomaly</h2><p>ความแตกต่างจากช่วง Historical</p></div></div><div class="map-image"><img src="images/R35Anom.png" alt="R35mm Difference / Anomaly" loading="eager"></div></article></div>
-<div class="infos">
-<section class="info"><h3>01 · ภูมิอากาศในอดีต</h3><div class="body"><p>แผนที่แสดงจำนวนวันที่ฝนตกตั้งแต่ 35 มม./วันขึ้นไปในเดือนพฤศจิกายนของช่วงอ้างอิง 1981–2010</p><p>ใช้เป็นฐานสำหรับการเปรียบเทียบกับภาพฉายภูมิอากาศ</p></div></section>
-<section class="info"><h3>02 · ภาพฉายเดือนพฤศจิกายน 2026</h3><div class="body"><p>แสดงผลการจำลองภายใต้สถานการณ์ SSP5-8.5 ซึ่งเป็นสถานการณ์การปล่อยก๊าซเรือนกระจกสูง</p><p>ผลดังกล่าวไม่ใช่การพยากรณ์ฝนสำหรับเดือนพฤศจิกายน 2026</p></div></section>
-<section class="info"><h3>03 · ความแตกต่างและพื้นที่เฝ้าระวัง</h3><div class="body"><p>เปรียบเทียบจำนวนวันฝนตกหนักระหว่างภาพฉายและช่วงอ้างอิง โดยตีความสีและค่าตาม legend ในแผนที่ต้นฉบับ</p><p><strong>การระบุชื่อจังหวัดหรือภูมิภาคต้องอ้างอิงการวิเคราะห์ข้อมูลจริงเพิ่มเติม</strong></p></div></section>
-</div>
-</div>
-<div class="notice"><strong>หมายเหตุสำคัญ:</strong> ข้อมูลนี้เป็นภาพฉายผลกระทบจากการเปลี่ยนแปลงสภาพภูมิอากาศภายใต้สถานการณ์ SSP5-8.5 จากแบบจำลอง CMIP6 ที่ดาวน์สเกลด้วย WRF-Chem (25 km) ไม่ใช่การพยากรณ์อากาศรายเดือน และไม่สามารถใช้เป็นข้อมูลแจ้งเตือนภัยรายวันได้ โปรดติดตามการพยากรณ์และประกาศเตือนภัยจากกรมอุตุนิยมวิทยา</div>
-</main><div id="mapViewer" class="map-viewer" role="dialog" aria-modal="true" aria-label="ขยายภาพแผนที่"><button type="button" id="closeViewer">✕ ปิด</button><img id="viewerImage" alt="แผนที่ขนาดใหญ่"></div><footer>Laboratory & Modeling  Sub-Division · Climate Change and Environmental Research Center · Department of Climate Change and Environment (DCCE)</footer>
+<header><img class="logo" src="images/DCCE_logo.gif" alt="DCCE logo"><div><h1>ผลกระทบจากการเปลี่ยนแปลงสภาพภูมิอากาศ</h1><h1 class="accent">ต่อรูปแบบฝนของประเทศไทย</h1><p>CMIP6 · SSP5-8.5 · Downscaled by WRF-Chem (25 km)</p></div><div class="pill">SSP5-8.5<br><small>High GHG emissions scenario</small></div></header>
+<main>
+<section class="panel"><h2>เลือกดัชนีปริมาณฝน</h2><div class="tabs" id="tabs" role="tablist" aria-label="ดัชนีปริมาณฝน"></div></section>
+<section class="panel toolbar"><div><h2 id="indicatorTitle"></h2><p id="period"></p><p id="definition"></p></div><div class="modes" id="modes" aria-label="ประเภทแผนที่"></div></section>
+<section class="maps" id="maps" aria-live="polite"></section>
+<section class="panel"><details><summary>ข้อมูลและวิธีการวิเคราะห์ (Data &amp; Methodology)</summary><p>Climatology คือค่าเฉลี่ยของดัชนีที่คำนวณแยกในแต่ละเดือนของปี 1981–2010 (30 ปี) และเปรียบเทียบกับเดือนเดียวกันในปีเป้าหมายภายใต้ SSP5-8.5 ส่วน Anomaly = SSP5-8.5 − Climatology</p><p>R35mm: ฝนรายวัน ≥ 35 mm; PRCPTOT: ผลรวมฝนในวันที่ ≥ 1 mm; RX5day: ฝนสะสมสูงสุดในช่วง 5 วันภายในเดือน; CWD5: วันฝน ≥ 5 mm ติดต่อกันยาวนานที่สุดภายในเดือน ข้อมูล WRF-Chem มีความละเอียดเชิงพื้นที่ประมาณ 25 km</p><p>ภาพแต่ละรูปเป็น Infographic สำเร็จรูปจากการประมวลผล ไม่ได้มีการเปลี่ยนแปลงค่าสีหรือแก้ไขแผนที่บนเว็บไซต์</p></details></section>
+<div class="notice"><strong>หมายเหตุสำคัญ:</strong> ข้อมูลนี้เป็นผลการจำลองภายใต้สถานการณ์ SSP5-8.5 ซึ่งสมมติการปล่อยก๊าซเรือนกระจกในระดับสูง ไม่ใช่การพยากรณ์อากาศรายเดือนหรือการแจ้งเตือนภัยรายวัน ผลต่างของเดือนเดียวไม่ใช่หลักฐานแนวโน้มภูมิอากาศระยะยาวโดยลำพัง โปรดติดตามการพยากรณ์และประกาศเตือนภัยจากกรมอุตุนิยมวิทยา</div>
+</main><footer>Laboratory &amp; Modeling Sub-Division · Department of Climate Change and Environment (DCCE)</footer>
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="ขยายภาพ Infographic"><button id="closeViewer">✕ ปิด</button><img id="viewerImage" alt="ภาพขยาย"></div>
 <script>
-(function() {
-const viewer=document.getElementById('mapViewer');
-const image=document.getElementById('viewerImage');
-function closeViewer() { viewer.classList.remove('open'); image.removeAttribute('src'); document.body.style.overflow=''; }
-document.querySelectorAll('.map-image img').forEach(img=>{
- img.title='แตะเพื่อขยายภาพ';
- img.addEventListener('click',()=>{ image.src=img.src; image.alt=img.alt; viewer.classList.add('open'); document.body.style.overflow='hidden'; });
-});
-document.getElementById('closeViewer').addEventListener('click',closeViewer);
-viewer.addEventListener('click',e=>{ if(e.target===viewer) closeViewer(); });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeViewer(); });
-})();
+const CONFIG={"year": 2026, "month": 11, "monthLabel": "November", "indicators": {"R35mm": {"thai": "จำนวนวันฝนตกหนัก ≥ 35 มม./วัน", "english": "Number of heavy-rainfall days ≥ 35 mm/day", "unit": "days", "definition": "จำนวนวันที่ฝนรายวัน ≥ 35 มม. ในเดือนนั้น", "images": {"Climatology": "images/R35mm_Climatology_Infographic_2026-11.png", "SSP585": null, "Anomaly": "images/R35mm_Anomaly_Infographic_2026-11.png"}}, "PRCPTOT": {"thai": "ปริมาณฝนสะสมรายเดือน", "english": "Monthly total precipitation on wet days", "unit": "mm", "definition": "ผลรวมฝนในวันที่มีปริมาณฝน ≥ 1 มม./วัน", "images": {"Climatology": "images/PRCPTOT_Climatology_Infographic_2026-11.png", "SSP585": null, "Anomaly": "images/PRCPTOT_Anomaly_Infographic_2026-11.png"}}, "RX5day": {"thai": "ปริมาณฝนสะสมสูงสุด 5 วัน", "english": "Maximum consecutive 5-day rainfall", "unit": "mm", "definition": "ปริมาณฝนสะสมสูงสุดในช่วง 5 วันต่อเนื่องภายในเดือน", "images": {"Climatology": "images/RX5day_Climatology_Infographic_2026-11.png", "SSP585": null, "Anomaly": "images/RX5day_Anomaly_Infographic_2026-11.png"}}, "CWD5": {"thai": "จำนวนวันฝนตกต่อเนื่อง ≥ 5 มม./วัน", "english": "Maximum consecutive wet days ≥ 5 mm/day", "unit": "days", "definition": "จำนวนวันติดต่อกันสูงสุดที่มีฝน ≥ 5 มม./วัน", "images": {"Climatology": "images/CWD5_Climatology_Infographic_2026-11.png", "SSP585": null, "Anomaly": "images/CWD5_Anomaly_Infographic_2026-11.png"}}}};
+const TYPES=[['Climatology','01 · Historical / Climatology','ค่าเฉลี่ยภูมิอากาศอ้างอิง 1981–2010'],['SSP585','02 · SSP5-8.5','ภาพฉายภายใต้สถานการณ์การปล่อยก๊าซเรือนกระจกสูง'],['Anomaly','03 · Difference / Anomaly','ผลต่างระหว่าง SSP5-8.5 กับช่วงอ้างอิง']];
+let current='R35mm',mode='all';
+const el=id=>document.getElementById(id);
+function node(tag,cls,txt){const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x}
+function render(){
+ el('tabs').replaceChildren();Object.entries(CONFIG.indicators).forEach(([key,v])=>{const b=node('button','tab');b.type='button';b.setAttribute('role','tab');b.setAttribute('aria-selected',String(current===key));b.append(node('strong','',key),node('span','',v.thai));b.onclick=()=>{current=key;render()};el('tabs').append(b)});
+ const d=CONFIG.indicators[current];el('indicatorTitle').textContent=current+' · '+d.thai;el('period').textContent=CONFIG.monthLabel+' '+CONFIG.year+' เทียบกับ Historical (1981–2010)';el('definition').textContent=d.definition;
+ el('modes').replaceChildren();[['all','ทั้งหมด'],...TYPES.map(t=>[t[0],t[1].split(' · ')[1]])].forEach(([key,label])=>{const b=node('button','mode',label);b.type='button';b.setAttribute('aria-pressed',String(mode===key));b.onclick=()=>{mode=key;render()};el('modes').append(b)});
+ const maps=el('maps');maps.replaceChildren();maps.classList.toggle('single',mode!=='all');
+ TYPES.filter(t=>mode==='all'||mode===t[0]).forEach(([key,title,desc])=>{
+  const card=node('article','card'),head=node('div','card-head'),body=node('div','card-body');head.append(node('h3','',title),node('small','',desc));
+  const path=d.images[key];if(path){const img=node('img','map-image');img.src=path;img.alt=current+' '+title;img.loading=mode==='all'&&key!=='Climatology'?'lazy':'eager';img.onclick=()=>openViewer(path,img.alt);img.onerror=()=>{img.replaceWith(node('div','missing','ไม่พบรูปภาพ: '+path))};body.append(img)}else{body.append(node('div','missing','ยังไม่พบ Infographic สำหรับ '+current+' / '+key))}
+  body.append(node('p','card-desc',key==='Climatology'?'ใช้เป็นฐานเปรียบเทียบกับเดือนเดียวกันในสถานการณ์ SSP5-8.5':key==='SSP585'?'ผลการจำลองภูมิอากาศ ไม่ใช่การพยากรณ์รายเดือน':'ค่าบวกหมายถึงค่าดัชนีเพิ่มขึ้นเมื่อเทียบกับค่าเฉลี่ยอ้างอิง ไม่ได้หมายถึงความเสี่ยงเพิ่มขึ้นในทุกกรณี'));
+  if(path){const actions=node('div','card-actions'),a=node('a','action','เปิด PNG ต้นฉบับ');a.href=path;a.target='_blank';a.rel='noopener';a.setAttribute('download','');actions.append(a);body.append(actions)}card.append(head,body);maps.append(card)
+ });
+}
+function openViewer(src,alt){el('viewerImage').src=src;el('viewerImage').alt=alt;el('viewer').classList.add('open');document.body.style.overflow='';document.body.style.overflow='hidden';el('closeViewer').focus()}
+function closeViewer(){el('viewer').classList.remove('open');el('viewerImage').removeAttribute('src');document.body.style.overflow=''}
+el('closeViewer').onclick=closeViewer;el('viewer').onclick=e=>{if(e.target===el('viewer'))closeViewer()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeViewer()});render();
 </script></body></html>
