@@ -1,14 +1,14 @@
 {
   "timezone": "Asia/Bangkok",
   "start_date": "2026-10-16",
-  "updated_at_th": "2026-11-11 08:16:05 +0700",
+  "updated_at_th": "2026-11-11 09:14:19 +0700",
   "month": {
     "period": "2026-11",
     "unique_visitors": 7,
-    "page_views": 10
+    "page_views": 11
   },
   "lifetime": {
     "unique_visitors": 23,
-    "page_views": 101
+    "page_views": 102
   }
 }
